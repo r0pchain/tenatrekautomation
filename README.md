@@ -30,7 +30,7 @@ Depending on the level of automation you want to do with your TenaControls model
  - Create a voice assistant routine that will trigger the virtual switch, turning everything on!
 
 ## The Flask App
-The Flask app included in this project is the "brains" of our automation, and essentially serves as a translation layer between web requests and the Bluetooth serial communication commands that the TenaControls board expects. The serial commands for the board are embedded into the app.py script which listens on port 1701 for the command dictionary below. I placed it in **/home/pi/flask_bluetooth** and then tested it with **python3 /home/pi/flask_bluetooth/app.py** and sent a few commands using cURL to ensure my TenaControls board was receiving the serial commands OK. 
+The Flask app included in this project is the "brains" of our automation, and essentially serves as a translation layer between web requests and the Bluetooth serial communication commands that the TenaControls board expects. The serial commands for the board are embedded into the app.py script which listens on port 1701 for the command dictionary below. I placed it in **/home/pi/flask_bluetooth** and then tested it with **python3 /home/pi/flask_bluetooth/app.py** and sent a few commands using cURL to ensure my TenaControls board was receiving the serial commands OK. **Make sure you change the MAC to match the one you paired earlier!**
 
 Those cURL commands looked something like:
 **curl -X POST http://192.168.1.10:1701/send -H "Content-Type: application/json" -d '{"command": "saucer"}'**
