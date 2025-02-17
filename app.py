@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import bluetooth
 import time
 
@@ -8,7 +8,7 @@ DEVICE_MAC = "98:98:98:98:98:98"
 
 commands = {
     "saucer": "*SAUCER#",
-    "secondaryhull": "*SEC#",
+    "secondary": "*SEC#",
     "neck": "*NECK#",
     "chiller": "*CHILLER#",
     "nav": "*NAV#",
@@ -40,6 +40,10 @@ def send_command(command):
     except bluetooth.btcommon.BluetoothError as e:
         return f"Bluetooth error: {e}"
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
 @app.route("/send", methods=["POST"])
 def send():
     data = request.json
@@ -49,9 +53,9 @@ def send():
         return jsonify({"error": "Invalid command"}), 400
 
     if command_key == "demo":
-        sequence = ["play1", "saucer", "neck", "chiller", "nav", "strobe", "impulse", "deflector", "secondaryhull"]
+        sequence = ["play1", "secondary", "saucer", "neck", "chiller", "nav", "strobe", "impulse", "deflector"]
     elif command_key == "lightup":
-        sequence = ["saucer", "neck", "chiller", "nav", "strobe", "impulse", "deflector", "secondaryhull"]
+        sequence = ["saucer", "secondary", "neck", "chiller", "nav", "strobe", "impulse", "deflector"]
     else:
         sequence = [command_key]
 
@@ -65,3 +69,4 @@ def send():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=1701)
+

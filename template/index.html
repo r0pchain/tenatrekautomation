@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starship Control Panel</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h2 {
+            color: #1E90FF;
+            margin-top: 20px;
+        }
+        .section {
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            display: inline-block;
+            width: 90%;
+            max-width: 600px;
+        }
+        .section-title {
+            font-size: 18px;
+            color: #1E90FF;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #0b5ed7;
+        }
+        .status-box {
+            background-color: #222;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 18px;
+            width: 80%;
+        }
+    </style>
+    <script>
+        function sendCommand(command) {
+            fetch("/send", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("statusMessage").innerText = data.message;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("statusMessage").innerText = "Error sending command";
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <h2>Starship Control Panel</h2>
+
+    <!-- Lighting Controls Section -->
+    <div class="section">
+        <div class="section-title">Lighting Controls</div>
+        <button onclick="sendCommand('saucer')">Saucer Lights</button>
+        <button onclick="sendCommand('secondary')">Secondary Hull</button>
+        <button onclick="sendCommand('neck')">Neck Lights</button>
+        <button onclick="sendCommand('chiller')">Chiller</button>
+        <button onclick="sendCommand('nav')">Nav Lights</button>
+        <button onclick="sendCommand('strobe')">Strobe Lights</button>
+        <button onclick="sendCommand('impulse')">Impulse</button>
+        <button onclick="sendCommand('deflector')">Deflector</button>
+        <button onclick="sendCommand('photon')">Photon Torpedoes</button>
+    </div>
+
+    <!-- Audio Playback Section -->
+    <div class="section">
+        <div class="section-title">Audio Clips</div>
+        <button onclick="sendCommand('play1')">Play 1</button>
+        <button onclick="sendCommand('play2')">Play 2</button>
+        <button onclick="sendCommand('play3')">Play 3</button>
+        <button onclick="sendCommand('play4')">Play 4</button>
+        <button onclick="sendCommand('play5')">Play 5</button>
+        <button onclick="sendCommand('play6')">Play 6</button>
+        <button onclick="sendCommand('play7')">Play 7</button>
+        <button onclick="sendCommand('play8')">Play 8</button>
+        <button onclick="sendCommand('play9')">Play 9</button>
+        <button onclick="sendCommand('play10')">Play 10</button>
+    </div>
+
+    <!-- Sequences Section -->
+    <div class="section">
+        <div class="section-title">Sequences</div>
+        <button onclick="sendCommand('demo')">Run Demo</button>
+        <button onclick="sendCommand('lightup')">Light Up</button>
+    </div>
+
+    <!-- Status Display -->
+    <h3>Status:</h3>
+    <div class="status-box">
+        <p id="statusMessage">Waiting for command...</p>
+    </div>
+
+</body>
+</html>
