@@ -1,4 +1,5 @@
 
+
 # TenaControls Trek Board Automations
 
 Flask-based application to automate TenaControls' model lighting boards
@@ -34,6 +35,8 @@ The Flask app included in this project is the "brains" of our automation, and es
 
 Those cURL commands looked something like:
 **curl -X POST http://192.168.1.10:1701/send -H "Content-Type: application/json" -d '{"command": "saucer"}'**
+
+The Flask app also includes a simple web page it runs along with it that allows you to press buttons on an HTML page and interact with the hobby board; note that this is important as the TenaControls board seems to only support one serial connection to it at a time, meaning if you're expecting to use this for automation all the time, you'll never really be able to use the TenaControls app ever again and will need to use this button page instead.
 
 Once I was satisfied this was working, I needed to make sure this app would start on boot.
 
@@ -153,6 +156,29 @@ My high-level workflow for IFTTT was:
 ## The Voice Assistant
 Assuming you already have your SmartThings connected to Alexa or Google Home etc, you should now be able to see that virtual switch in there and interact with it; clicking it should result in the webhook you configured in IFTTT to hit your Flask application. Create a new routine in your voice assistant that will turn on this virtual switch whenever you give some witty command like "engage", thus cementing your tech sophistication and nerd cred with all three of your friends. 
 
+
+## Command Dictionary
+    "saucer": lights up the saucer lighting on the primary hull
+    "secondary": on my board, lights up the display base
+    "neck": lights up auxillary external lights for the model
+    "chiller": chiller grill lighting on nacelles
+    "nav": navigation lights
+    "strobe": strobe blinkies
+    "impulse": impulse thrusters
+    "deflector": deflector dish
+    "photon": fire photon torpedoes
+    "phaser": fire phasers
+    "warp": warp mode - per how the original TenaControls app works, you press this and then "delfector" to engage mode
+    "play1": plays a pre-recorded sound clip, if eqipped on your board
+    "play2": plays a pre-recorded sound clip, if eqipped on your board
+    "play3": plays a pre-recorded sound clip, if eqipped on your board
+    "play4": plays a pre-recorded sound clip, if eqipped on your board
+    "play5": plays a pre-recorded sound clip, if eqipped on your board
+    "play6": plays a pre-recorded sound clip, if eqipped on your board
+    "play7": plays a pre-recorded sound clip, if eqipped on your board
+    "play8": plays a pre-recorded sound clip, if eqipped on your board
+    "play9": plays a pre-recorded sound clip, if eqipped on your board
+    "play10": plays a pre-recorded sound clip, if eqipped on your board
 
 
 ## Parting Thoughts
